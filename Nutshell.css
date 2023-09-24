@@ -1,0 +1,97 @@
+
+.background {
+    background: rgb(34,193,195);
+    background: linear-gradient(90deg,rgb(96, 210, 197) 0%,  rgb(140, 198, 199) 100%);    
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+}
+
+.recipe-list-container {
+    width: 30vw;
+    height: 95vh;
+    min-height: 300px;
+    overflow-y: scroll;
+    position: relative;
+    top: 2vh;
+    direction: rtl;
+    /* border: 2px solid black; */
+}
+
+.recipe-list-filter {
+    direction: ltr;
+    padding: 5px;
+    margin-left:10px;
+}
+.recipe-list-item {
+    direction: ltr;
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 30px;
+    list-style-type: none;
+}
+.recipe-list-item:hover {
+    background-color: rgb(113, 189, 218);
+}
+
+.recipe-list-tags {
+    font-size: 0.7em;
+}
+
+.recipe-scroll-container {
+    background-color: rgb(225, 226, 226);
+    position: fixed;
+    top: 0;
+    right: 0;
+        /* border: 2px solid black; */
+
+}
+
+.recipe-scroll-photo {
+    width: 200px;
+    height: 200px;
+}
+
+.recipe-scroll-item {
+    width: 200px;
+    height: 230px;
+    text-align: center;
+    padding: 20px;
+}
+.recipe-scroll-item:hover {
+    background-color: rgb(110, 212, 215);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.recipe-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+
+.recipe-scroll {
+	background-color: rgb(225, 226, 226);
+	height: 90vh;
+    overflow: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+	max-width: 240px;
+	align-items: center;
+	padding: 0 20px;
+}
+
+
+.recipe-scroll .track {
+	width: calc(270px * 10);
+	animation: scroll 10s 0.5s linear infinite;
+}
+
+@keyframes  scroll {
+	from {
+		transform: translateY(calc(-270px));
+	}
+	to {
+		transform: translateY(0);
+	}
+}
