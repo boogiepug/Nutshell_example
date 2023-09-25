@@ -68,7 +68,7 @@ function getRecipesForTrack() {
 function addItemInList ($name, $tags, $servings, $id) {
     echo <<<PRODUCTLIST
     <li class="recipe-list-item" id="$id">
-        $id: $name
+        $name
         <div class="recipe-list-tags">
         $tags, $servings servings
         </div>

@@ -11,8 +11,7 @@
     <div style="display: flex;">
         <div class="recipe-list-container">
             <form action="" class="recipe-list-filter">
-                <input type="text" size="30" placeholder="Search for title, tags or ingredients">
-                <input type="button" value="Search">
+                <input type="text" size="50" placeholder="Search for title or #tags" id="search">
             </form>
             <ul>
                 <?php
@@ -45,7 +44,7 @@
                         <br/>
                     </div>
                     <div class="recipe-full-image">
-                        <image id="image" src=""/>
+                        <image id="image" src="" hidden=true/>
                     </div>
                 </div>
                 <p class="recipe-full-directions" id="directions"> 

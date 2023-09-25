@@ -16,16 +16,31 @@ window.addEventListener('load', function() {
         })
     });
 
+    this.document.getElementById("search").addEventListener('keyup', (event) => {
+        if(event.key == 'Enter') {
+            event.preventDefault()
+        }
+        let needle = this.document.getElementById("search").value.toLowerCase()
+        filterResults(needle)
+    })
 
+    function filterResults(needle){
+        let results = globalThis.document.querySelectorAll(".recipe-list-item");
+        results.forEach(element => {
+            if(!element.innerHTML.toLocaleLowerCase().includes(needle))
+                element.hidden = true
+            else
+                element.hidden = false
+        });
+    }
 
-
-    //I realised that the best option for this functionality is to 
-    //use API call. However due to time constraints, i decided to use 
-    //my old API server located at newnumyspace.co.uk given to me by
-    //Northumbria University for the purpose of CS Course
     async function displayRecipe(id){
 
         
+        //I realised that the best option for this functionality is to 
+        //use API call. However due to time constraints, i decided to use 
+        //my old API server located at newnumyspace.co.uk given to me by
+        //Northumbria University for the purpose of CS Course
         const response = await fetch("http://unn-w20020557.newnumyspace.co.uk/API/directions/" + id)
         .then((result) => 
             result.json()
@@ -51,7 +66,6 @@ window.addEventListener('load', function() {
             let ingridients = globalThis.document.getElementById('ingridients')
             ingridients.innerHTML = ''
             result['ingridients'].forEach(element => {
-                console.log(element.direction)
                 ingridients.innerHTML+= '<li class="recipe-full-ingridients">' +
                  element.name +
                  ((element.quantity == null)? ('') : (', ' + element.quantity)) + 
@@ -61,6 +75,7 @@ window.addEventListener('load', function() {
 
             let image = globalThis.document.getElementById('image')
             image.src = result['image']
+            image.hidden = false
             
             let directions = globalThis.document.getElementById('directions')
             directions.innerHTML = ''
