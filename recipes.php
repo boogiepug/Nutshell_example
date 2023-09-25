@@ -20,7 +20,7 @@ function getRecipesShort() {
         $result = $database->query($sql);
         
         while($item = $result->fetchObject()) {
-            addItemInList($item->title, getTags($item->recipe_id), $item->servings);
+            addItemInList($item->title, getTags($item->recipe_id), $item->servings, $item->recipe_id);
         }
 	}
 	catch (Exception $e) {
@@ -28,45 +28,63 @@ function getRecipesShort() {
 	}
 }
 
+//fetching function to match all tags to requested recipe
 function getTags($recipe_id) {
     $database = getConnection();
-
     $sql = "select distinct tags.tag_id, tag
     from tags
     join tags_in_recipe on tags_in_recipe.tag_id = tags.tag_id
     join recipes_full on recipes_full.recipe_id = tags_in_recipe.recipe_id
-    where tags_in_recipe.recipe_id = $recipe_id";
+    where tags_in_recipe.recipe_id = ?";
     
-    $result = $database->query($sql);
+    //Using prepared statement helps preventing malicious usage
+    $result = $database->prepare($sql);
+    $result->execute([$recipe_id]);
+    
+    $result = $result->fetchAll();
     $response = "";
-    while ($record = $result->fetchObject()) {
-        $response .= "#".$record->tag . " ";
+
+    foreach ($result as $record) {
+        $response .= "#".$record['tag'] . " ";
     }
     return $response;
 }
 
-function getRecipes() {
+//fetching function to get all relevant attributes for items on animated track
+function getRecipesForTrack() {
     $database = getConnection();
-	try {
-	    //$sql = "select toyID, toyName, catDesc, toyPrice from NTL_special_offers inner join NTL_category on NTL_special_offers.catID = NTL_category.catID order by rand() limit 1";
-        $sql = "select * from ingridients";
+    try {
+        $sql = "select recipe_id, title, image from recipes_full";
         $result = $database->query($sql);
-	    $recipes = $result->fetchObject();
+	    $recipes = $result->fetchAll();
 	    return json_encode($recipes);
-	}
-	catch (Exception $e) {
+    }
+    catch(Exception $e){
 		throw new Exception("problem: " . $e->getMessage());
-	}
+    }
 }
 
-function addItemInList ($name, $tags, $servings) {
+//Adding products to the list of all recipes
+function addItemInList ($name, $tags, $servings, $id) {
     echo <<<PRODUCTLIST
-<li class="recipe-list-item">
-    $name
-    <div class="recipe-list-tags">
-       $tags, $servings servings
-    </div>
-</li>
+    <li class="recipe-list-item" id="$id">
+        $id: $name
+        <div class="recipe-list-tags">
+        $tags, $servings servings
+        </div>
+    </li>
 PRODUCTLIST;
 
+}
+
+//Adding products to animated track
+function addItemOnTrack($title, $photo, $id) {
+    echo <<<PRODUCTLIST
+    <div class="recipe-scroll-item" id="$id">
+        <img src="$photo" alt="$title" class="recipe-scroll-photo" draggable="false"/>
+        <div>
+            <b>$title</b>
+        </div>
+    </div>
+    PRODUCTLIST;
 }

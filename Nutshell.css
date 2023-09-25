@@ -1,7 +1,7 @@
 
 .background {
     background: rgb(34,193,195);
-    background: linear-gradient(90deg,rgb(96, 210, 197) 0%,  rgb(140, 198, 199) 100%);    
+    background: linear-gradient(90deg,rgb(153, 106, 106) 0%,  rgb(222, 170, 107) 100%);    
 }
 
 .title {
@@ -27,6 +27,7 @@
 }
 .recipe-list-item {
     direction: ltr;
+    font-style: italic;
     text-align: center;
     font-size: 1.5em;
     margin-top: 30px;
@@ -64,18 +65,10 @@
     background-color: rgb(110, 212, 215);
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.recipe-scroll::-webkit-scrollbar {
-    display: none;
-}
-
-
 .recipe-scroll {
 	background-color: rgb(225, 226, 226);
 	height: 90vh;
-    overflow: auto;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    overflow: hidden;
 	max-width: 240px;
 	align-items: center;
 	padding: 0 20px;
@@ -84,14 +77,30 @@
 
 .recipe-scroll .track {
 	width: calc(270px * 10);
-	animation: scroll 10s 0.5s linear infinite;
+	animation: scroll 40s 0.5s linear infinite;
 }
 
 @keyframes  scroll {
 	from {
-		transform: translateY(calc(-270px));
+		transform: translateY(calc(-270px * 4));
 	}
 	to {
-		transform: translateY(0);
+		transform: translateY(calc(0));
 	}
+}
+
+.recipe-full-container {
+    width: 45vw;
+}
+.recipe-full-title {
+    width: 100%;
+    text-align: center;
+}
+
+.recipe-full-subtitle {
+    text-align: center;
+}
+.recipe-full-directions {
+    font-style: italic;
+    font-size: 1.3em;
 }
