@@ -17,7 +17,6 @@
     position: sticky;
     top: 2vh;
     direction: rtl;
-    /* border: 2px solid black; */
 }
 
 .recipe-list-filter {
@@ -62,8 +61,6 @@
     position: fixed;
     top: 0;
     right: 0;
-        /* border: 2px solid black; */
-
 }
 
 .recipe-scroll-photo {

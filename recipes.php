@@ -1,9 +1,11 @@
 <?php
 function getConnection() {
     try {
+        //Connect to the database using PDO library
         $connection = new PDO("sqlite:".__DIR__."/database/recipes.db");
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+        //Return the database as a variable
         return $connection;
 
     } catch (Exception $e) {
@@ -11,14 +13,17 @@ function getConnection() {
     }   
 }
 
-
+//fetching only few important attributes of the recipes, hence Short in function name
 function getRecipesShort() {
     $database = getConnection();
 	try {
+
+        //Prepare and query SQL statement
         $sql = "select distinct recipes_full.recipe_id, title, servings
         from recipes_full";
         $result = $database->query($sql);
         
+        //Add every retrieved item to the displayed list
         while($item = $result->fetchObject()) {
             addItemInList($item->title, getTags($item->recipe_id), $item->servings, $item->recipe_id);
         }
@@ -31,19 +36,22 @@ function getRecipesShort() {
 //fetching function to match all tags to requested recipe
 function getTags($recipe_id) {
     $database = getConnection();
+
+     //Prepare and query SQL statement
     $sql = "select distinct tags.tag_id, tag
     from tags
     join tags_in_recipe on tags_in_recipe.tag_id = tags.tag_id
     join recipes_full on recipes_full.recipe_id = tags_in_recipe.recipe_id
     where tags_in_recipe.recipe_id = ?";
     
-    //Using prepared statement helps preventing malicious usage
+    //Using prepared statement to prevent malicious usage
     $result = $database->prepare($sql);
     $result->execute([$recipe_id]);
     
     $result = $result->fetchAll();
     $response = "";
 
+    //Add every retrieved record as a tag in displayed list
     foreach ($result as $record) {
         $response .= "#".$record['tag'] . " ";
     }
@@ -54,6 +62,8 @@ function getTags($recipe_id) {
 function getRecipesForTrack() {
     $database = getConnection();
     try {
+        
+        //Prepare and query SQL statement
         $sql = "select recipe_id, title, image from recipes_full";
         $result = $database->query($sql);
 	    $recipes = $result->fetchAll();

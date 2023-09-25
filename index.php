@@ -9,6 +9,8 @@
 <body class="background">
     
     <div style="display: flex;">
+
+        <!-- All recipes list  -->
         <div class="recipe-list-container">
             <form action="" class="recipe-list-filter">
                 <input type="text" size="50" placeholder="Search for title or #tags" id="search">
@@ -21,6 +23,8 @@
             </ul>
         </div>
         <div>
+
+            <!-- Site introduction -->
             <header>
                 <h1 class="title">
                     Welcome to All Recipes 2.0!
@@ -29,6 +33,8 @@
                     This is an example application for Nutshell Apps
                 </h2>
             </header>
+
+            <!-- Main recipe and ingridients area  -->
             <div class="recipe-full-container" id="recipe_full">
                 <h2 class="recipe-full-title" id="title">
                     Click on any recipe
@@ -51,6 +57,8 @@
                     And all the directions, here!
                 </p>
             </div>
+
+                <!-- Animating side track  -->
             <div class="recipe-scroll-container">
                 <h1 class="title">
                     Try now!!
