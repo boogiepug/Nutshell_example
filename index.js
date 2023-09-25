@@ -32,13 +32,43 @@ window.addEventListener('load', function() {
         )
         .then((result) => {
             console.log(result);
+            
+            //Fill the title of the recipe
+            let title = globalThis.document.getElementById('title')
+            title.innerHTML = result['title']
+
+            //Fill the description of the recipe
+            let description = globalThis.document.getElementById('description')
+            description.innerHTML = result['description']
+
+            //Show author, preperation and cooking time if present
+            let subtitle = globalThis.document.getElementById('subtitle')
+            subtitle.innerHTML = ''
+            subtitle.innerHTML = "By: " + result['author'] + 
+            ((result['prep_time_min'] == null) ? '' : (" | prep time: " + result['prep_time_min']) )+ 
+            ((result['cook_time_min'] == null) ? ('') : (" | cook time: " + result['cook_time_min']))
+
+            let ingridients = globalThis.document.getElementById('ingridients')
+            ingridients.innerHTML = ''
+            result['ingridients'].forEach(element => {
+                console.log(element.direction)
+                ingridients.innerHTML+= '<li class="recipe-full-ingridients">' +
+                 element.name +
+                 ((element.quantity == null)? ('') : (', ' + element.quantity)) + 
+                 ((element.units == null) ? ('') : (' ' + element.units)) +  
+                 '</li>' 
+            });
+
+            let image = globalThis.document.getElementById('image')
+            image.src = result['image']
+            
             let directions = globalThis.document.getElementById('directions')
             directions.innerHTML = ''
             result['directions'].forEach(element => {
                 console.log(element.direction)
-                directions.innerHTML+= '<li class="recipe-full-directions">' +
+                directions.innerHTML+= '<div class="recipe-full-directions"> - ' +
                  element.direction + 
-                 '</li>' 
+                 '</div>' 
             });
         })
     }

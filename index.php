@@ -15,12 +15,6 @@
                 <input type="button" value="Search">
             </form>
             <ul>
-                <li class="recipe-list-item" id="XD">
-                    $name
-                    <div class="recipe-list-tags">
-                    $tags, $servings servings
-                    </div>
-                </li>
                 <?php
                     require_once('recipes.php');
                     getRecipesShort();
@@ -40,12 +34,23 @@
                 <h2 class="recipe-full-title" id="title">
                     Click on any recipe
                 </h2>
+                <h3 class="recipe-full-description" id="description">
+                    All the details will be shown here
+                </h3>
                 <div class="recipe-full-subtitle" id="subtitle">
                     All the details will be shown here
                 </div>
-                <div class="recipe-full-directions" id="directions"> 
-                    And all the directions, here!
+                <div style="display: flex;">
+                    <div class="recipe-full-ingridients" id="ingridients">
+                        <br/>
+                    </div>
+                    <div class="recipe-full-image">
+                        <image id="image" src=""/>
+                    </div>
                 </div>
+                <p class="recipe-full-directions" id="directions"> 
+                    And all the directions, here!
+                </p>
             </div>
             <div class="recipe-scroll-container">
                 <h1 class="title">

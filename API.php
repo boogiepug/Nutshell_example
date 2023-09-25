@@ -43,9 +43,17 @@ if(strpos($path, "directions/") !== false) {
     $result->execute([":recipe_id"=>$recipe_id]);
 
     $result = $result->fetchAll();
-
     $response->directions = $result;
     
+    $sql = "SELECT name, quantity, units
+    FROM ingridients_in_recipe
+    JOIN ingridients ON ingridients_in_recipe.ingridient_id = ingridients.ingridient_id
+    WHERE recipe_id = :recipe_id";
+
+    $result = $db->prepare($sql);
+    $result->execute([":recipe_id"=>$recipe_id]);
+    $result = $result->fetchAll();
+    $response->ingridients = $result;
     $endpoint = $response;
 }
 
